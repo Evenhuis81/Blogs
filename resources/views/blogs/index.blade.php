@@ -8,7 +8,10 @@
     <ul>
         @foreach ($blogs as $blog)
             <li><a href="/blogs/{{ $blog->id }}">Blog title: {{ $blog->title }} >> Blog description: {{ $blog->description }} >>  Written by: {{ $blog->author->last_name }} >> created: {{ $blog->created_at->diffForHumans() }}<br>
-                 >> Category: </a></li>
+                 {{-- >> Category: {{ dd($blog->categories) }}</a></li> --}}
+                 @foreach ($blog->categories as $category)
+                 Category: {{ $category->name }}
+                 @endforeach
                  <p>------------------------------------------------------------------------------------------------------------------------------</p>
         @endforeach
     </ul>

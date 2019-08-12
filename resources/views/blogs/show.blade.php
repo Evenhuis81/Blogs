@@ -2,11 +2,14 @@
 @section('title', 'Show a Blog')
 @section('pagetitle', 'Show Blog')
 @section('content')
-<h1 class="title"><span style="font-size: 16px">Title:</span> {{ $blog->title }} </h1>
+<h1 class="title">Title: {{ $blog->title }} </h1>
 
     <div class="content">
-        <span style="font-size: 12px">Description:</span>{{ $blog->description }}
+        <h4>Description: {{ $blog->description }}</h4>
+        <p><a href="/blogs/{{ $blog->id }}/edit">Edit Blog</a></p>
+        </div>
 
+        
         {{-- <form method="POST" action="/tasks/{{ $blog->id }}">
             @method('PATCH')
             @csrf
@@ -16,12 +19,21 @@
                 </label>
             </form> --}}
 
+    
+        
+        <h6>Categories:</h6>
+        {{-- {{ dd($blog->categories[0]->pivot->blog_id) }} --}}
+        @foreach ($categories as $category)
+        <form method="POST" action="/blogcategories/{{ $category->id }}">
+            @csrf
+            <label><input type="checkbox" name="category" onChange="this.form.submit()" {{ $blog->categories->contains($category) ? "checked" : "" }}> {{ $category->name }} </label><br>
+        </form>
+        @endforeach
 
 
-        <p>
-            <a href="/blogs/{{ $blog->id }}/edit">Edit</a><br>
-        </p>
-    </div>
+
+
+
    
     <form class="box" method="POST" action="/blogs/{{ $blog->id }}/comments/">
         @csrf
