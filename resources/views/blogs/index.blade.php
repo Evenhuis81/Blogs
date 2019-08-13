@@ -4,11 +4,10 @@
 @section('content')
 
 <div id="container">
-    <h3>Overview all blogs:</h3>
+    <h3>Overview blogs:</h3>
     <ul>
         @foreach ($blogs as $blog)
             <li><a href="/blogs/{{ $blog->id }}">Blog title: {{ $blog->title }} >> Blog description: {{ $blog->description }} >>  Written by: {{ $blog->author->last_name }} >> created: {{ $blog->created_at->diffForHumans() }}<br>
-                 {{-- >> Category: {{ dd($blog->categories) }}</a></li> --}}
                  @foreach ($blog->categories as $category)
                  Category: {{ $category->name }}
                  @endforeach
@@ -38,10 +37,12 @@
             @break
     @endswitch
 </div>
-
+<br>
 <div id="container">
-    <p>categories:</p><br>
-    {{-- foreach categorie etc, checkbox --}}
+    <p>categories:</p>
+    @foreach ($categories as $category)
+        <label><input type="checkbox" name="categories[]">{{ $category->name }}</label><br>
+    @endforeach
 </div>
 @endsection
 

@@ -23,7 +23,7 @@
         <label class="label" for="description">Blog Description</label>
 
         <div class="control">
-            <textarea name="description" class="textarea {{ $errors->has('body') ? 'is-danger' : '' }}" required>
+            <textarea name="description" class="textarea {{ $errors->has('description') ? 'is-danger' : '' }}" required>
             {{ old('description') }}
             </textarea>
         </div>

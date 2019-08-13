@@ -2,7 +2,14 @@
 @section('title', 'Edit Page')
 @section('pagetitle', 'Edit Blog')
 @section('content')
-    <form method="POST" action="/blogs/{{ $blog->id }}" style="margin-bottom: 1em;">
+
+<form method="POST" action="/blogpremium/{{ $blog->id }}">
+    @method('PATCH')
+    @csrf
+    <label><input type="checkbox" name="premium" onChange="this.form.submit()" {{ $blog->premium ? "checked" : "" }}>Premium Content</label><br><br>
+</form>
+
+<form method="POST" action="/blogs/{{ $blog->id }}" style="margin-bottom: 1em;">
         <!-- {{ method_field('PATCH') }}
         {{ csrf_field() }} -->
         @method('PATCH')
@@ -12,7 +19,7 @@
         <label class="label" for="title">Title</label>
     
         <div class="control">
-            <input type="text" class="input" name="title" placeholder="Title" value="{{ $blog->title }}">
+            <input type="text" class="input" name="title" placeholder="Title" value="{{ old('title') ? old('title') :  $blog->title }}">
         </div>
     </div>
     
@@ -20,36 +27,21 @@
         <label class="label" for="description">Description</label>
     
         <div class="control">
-            <textarea name="description" class="textarea">{{ $blog->description }}</textarea>
+            <textarea name="description" class="textarea">{{ old('description') ? old('description') : $blog->description }}</textarea>
         </div>
     </div>
-
-    <div class="box">
-        @foreach ($blog->categories as $category)
-        <div>
-            {{-- <form method="POST" action="/tasks/{{ $task->id }}"> --}}
-            {{-- @method('PATCH')
-            @csrf --}}
-            
-            <label class="checkbox {{ $category->id ? 'is-complete' : ''}}" for="completed">
-                    <input type="checkbox" name="completed" onChange="this.form.submit()" {{ $category->id ? 'checked' : '' }}>
-                    {{ $category->name }}
-                </label>
-            {{-- </form> --}}
-        </div>
-
-        @endforeach
-    </div>
-
-
-
-
+    
+    <h6>Categories:</h6>
+    @foreach ($categories as $category)
+        <label><input type="checkbox" name="categories[]" value="{{ $category->id }}" {{ $blog->categories->contains($category) ? "checked" : "" }}> {{ $category->name }}</label><br>
+    @endforeach
+    
     <div class="field">
         <div class="control">
             <button type="submit" class="button is-link">Update Blog</button>
         </div>
     </div>
-    </form>
+</form>
 
     <form method="POST" action="/blogs/{{ $blog->id }}">    
         {{ method_field('DELETE') }}
@@ -60,6 +52,27 @@
             </div>
         </div>
     </form>
+    {{-- <br> --}}
+    {{-- <h6>Categories:</h6> --}}
 
+    {{-- @foreach ($categories as $category)
+    <form method="POST" action="/blogs/{{ $blog->id }}">
+        @method('PATCH')
+        @csrf
+        <label><input type="checkbox" name="category" value="{{ $category->id }}" onChange="this.form.submit()" {{ $blog->categories->contains($category) ? "checked" : "" }}> {{ $category->name }}
+            <input type="hidden" name="cid" value="{{ $category->id }}"> </label><br>
+    </form>
+    @endforeach --}}
+
+        {{-- <form method="POST" action="/tasks/{{ $blog->id }}">
+            @method('PATCH')
+            @csrf
+                <label class="checkbox {{ $blog->blogtasks->completed ? 'is-complete' : ''}}" for="completed">
+                    <input type="checkbox" name="completed" onChange="this.form.submit()" {{ $blog->blogtasks->completed ? 'checked' : '' }}>
+                    {{ $blog->blogtasks->description }}
+                </label>
+            </form> --}}
+            <br>
+    @include('errors')
 @endsection
 

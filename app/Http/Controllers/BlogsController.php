@@ -16,10 +16,11 @@ class BlogsController extends Controller
      */
     public function index()
     {
+        $categories = Category::all();
         $sortMethod = 'newold';
         $blogs = Blog::orderBy('created_at', 'desc')->get();
         //$categories = $blogs
-        return view('blogs.index', compact('blogs', 'sortMethod'));
+        return view('blogs.index', compact('blogs', 'sortMethod', 'categories'));
     }
 
     /**
@@ -56,8 +57,7 @@ class BlogsController extends Controller
      */
     public function show(Blog $blog)
     {
-        $categories = Category::all();
-        return view('blogs.show', compact('blog', 'categories'));
+        return view('blogs.show', compact('blog'));
     }
 
     /**
@@ -68,7 +68,8 @@ class BlogsController extends Controller
      */
     public function edit(Blog $blog)
     {
-        return view('blogs.edit', compact('blog'));
+        $categories = Category::all();
+        return view('blogs.edit', compact('blog', 'categories'));
     }
 
     /**
@@ -80,7 +81,22 @@ class BlogsController extends Controller
      */
     public function update(Request $request, Blog $blog)
     {
-        $blog->update(request(['title', 'description']));
+        $blog->categories()->sync(request('categories'));
+        // if (request()->has('cid')) {
+        //     if (request()->has('category')) {
+        //         dd('add category');
+        //     } else {
+        //         dd('remove category');
+        //     }
+        //     // voeg toe aan pivot
+        // } else {
+        //     dd('update blog');
+        //     // verwijder uit pivot
+        // }
+        $blog->update(request()->validate([
+            'title' => ['required', 'min:3', 'max:255'],
+            'description' => ['required', 'min:3']
+        ]));
         return redirect('/blogs');
     }
 

@@ -9,32 +9,6 @@
         <p><a href="/blogs/{{ $blog->id }}/edit">Edit Blog</a></p>
         </div>
 
-        
-        {{-- <form method="POST" action="/tasks/{{ $blog->id }}">
-            @method('PATCH')
-            @csrf
-                <label class="checkbox {{ $blog->blogtasks->completed ? 'is-complete' : ''}}" for="completed">
-                    <input type="checkbox" name="completed" onChange="this.form.submit()" {{ $blog->blogtasks->completed ? 'checked' : '' }}>
-                    {{ $blog->blogtasks->description }}
-                </label>
-            </form> --}}
-
-    
-        
-        <h6>Categories:</h6>
-        {{-- {{ dd($blog->categories[0]->pivot->blog_id) }} --}}
-        @foreach ($categories as $category)
-        <form method="POST" action="/blogcategories/{{ $category->id }}">
-            @csrf
-            <label><input type="checkbox" name="category" onChange="this.form.submit()" {{ $blog->categories->contains($category) ? "checked" : "" }}> {{ $category->name }} </label><br>
-        </form>
-        @endforeach
-
-
-
-
-
-   
     <form class="box" method="POST" action="/blogs/{{ $blog->id }}/comments/">
         @csrf
 

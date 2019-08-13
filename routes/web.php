@@ -26,3 +26,10 @@ Route::patch('/comments/{comment}', 'BlogCommentsController@update');
 Route::delete('comments/{comment}', 'BlogCommentsController@destroy');
 
 Route::post('blogcategories/{category}', 'BlogCategoriesController@store');
+
+Route::patch('/blogpremium/{blog}', function (blog $blog) {
+    $blog->update([
+        'premium' => request()->has('premium')
+    ]);
+    return back();
+});
