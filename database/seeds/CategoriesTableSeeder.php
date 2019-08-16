@@ -12,11 +12,17 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 1; $i < 4; $i++) {
             Category::create([
-                'name' => Str::random(6),
-                'description' => Str::random(10),
+                'name' => 'Nieuws',
+                'description' => 'Dit onderwerp is Nieuws.',
             ]);
-        }
+            Category::create([
+                'name' => 'Sport',
+                'description' => 'Dit onderwerp is Sport.',
+            ]);
+            Category::create([
+                'name' => 'Weer',
+                'description' => 'Dit onderwerp is Weer.',
+            ]);
     }
 }

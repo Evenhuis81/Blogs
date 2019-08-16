@@ -8,10 +8,11 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-    
+    <script src="/js/main.js"></script>
+
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
- </head>
+</head>
 
  <body>
     <div id="container">

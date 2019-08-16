@@ -3,27 +3,27 @@
 @section('pagetitle', 'Blogs')
 @section('content')
 
-<div id="container">
-    <h3>Overview blogs:</h3>
-    <ul>
-        @foreach ($blogs as $blog)
-            <li><a href="/blogs/{{ $blog->id }}">Blog title: {{ $blog->title }} >> Blog description: {{ $blog->description }} >>  Written by: {{ $blog->author->last_name }} >> created: {{ $blog->created_at->diffForHumans() }}<br>
-                 @foreach ($blog->categories as $category)
-                 Category: {{ $category->name }}
-                 @endforeach
-                 <p>------------------------------------------------------------------------------------------------------------------------------</p>
-        @endforeach
-    </ul>
-    <br>
-</div>
 
-<div>
+    <h3>Overview blogs:</h3>
+    <p>------------------------------------------------------------------------------------------------------------------------------</p>
+    <div id="bloggies">
+        @foreach ($blogs as $blog)
+            <a href="/blogs/{{ $blog->id }}">Blog title: {{ $blog->title }} >> Blog description: {{ $blog->description }} >>  Written by: {{ $blog->author->last_name }} >> created: {{ $blog->created_at->diffForHumans() }}</a><br>
+                Category: 
+                 @foreach ($blog->categories as $category)
+                 {{ $category->name }}
+                 @endforeach
+            <p>------------------------------------------------------------------------------------------------------------------------------</p>
+        @endforeach
+    </div>
+<br>
+{{-- <div>
     <p>sort by:</p>
     @switch($sortMethod)
         @case('newold')
             <p style="pointer-events: none; text-decoration: underline; color: green;" >latest blog -> first blog</p>
-            <a href="/sortoldnew"><p style="text-decoration: underline; color: blue;">first blog -> latest blog</a></p>
-            <a href="/sortauthor" style="color: blue"><p style="text-decoration: underline;">author (A->Z)</a></p>
+            <a href="/sortoldnew"><p style="text-decoration: underline; color: blue;">first blog -> latest blog</p></a>
+            <a href="/sortauthor"><p style="text-decoration: underline; color: blue">author (A->Z)</p></a>
             @break
         @case('author')
             <a href="/blogs"><p style="text-decoration: underline; color: blue;">latest blog -> first blog</p></a>
@@ -36,12 +36,15 @@
             <a href="/sortauthor"><p style="text-decoration: underline; color: blue;"> author (A->Z)</p></a>
             @break
     @endswitch
-</div>
-<br>
-<div id="container">
-    <p>categories:</p>
+</div> --}}
+
+<p>categories:</p>
+        <p>--------</p>
+        <label><input id="checkall" type="checkbox" name="checkall" onchange="checkall()" checked disabled>ALL</label><br>
+        <p>--------</p>
+    <div id="container">
     @foreach ($categories as $category)
-        <label><input type="checkbox" name="categories[]">{{ $category->name }}</label><br>
+        <label><input class="sortcat" type="checkbox" name="categories[]" onchange="category()" value="{{ $category->id }}">{{ $category->name }}</label><br>
     @endforeach
 </div>
 @endsection
