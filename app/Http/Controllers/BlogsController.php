@@ -19,6 +19,7 @@ class BlogsController extends Controller
         $categories = Category::all();
         $sortMethod = 'newold';
         $blogs = Blog::orderBy('created_at', 'desc')->get();
+        // dd($blogs);
         //$categories = $blogs
         return view('blogs.index', compact('blogs', 'sortMethod', 'categories'));
     }
@@ -31,6 +32,61 @@ class BlogsController extends Controller
     public function create()
     {
         return view('blogs.create');
+    }
+
+    public function ajax(Request $request)
+    {
+
+        $numbers = ($request->get('numbers'));
+        $category_ids = preg_split("/\,/", $numbers);
+
+
+
+
+        // for ($i = 0; $i < count($str_arr); $i++) {
+        //     $catblog[] = Category::find($str_arr[$i])->blogs()->get();
+        // }
+        // var_dump($catblog);
+        $catblog = [];
+
+        foreach ($category_ids as $category_id) {
+            $catbloo = Category::find($category_id)->blogs()->get();
+
+
+            foreach ($catbloo as $blog) {
+                if (count($catblog) == 0) {
+                    $catblog[] = $blog;
+                } else {
+                    for ($i = 0; $i < count($catblog); $i++) {
+                        if ($catblog[$i]->id == $blog->id) {
+                            break 2;
+                        }
+                    }
+                    $catblog[] = $blog;
+                }
+            }
+        }
+
+        // array_push($catblog, $catbloo);
+
+
+
+
+        // $array = array_push($numbers);
+
+
+        // for ($i = 0; $i < strlen($numbers); $i++) {
+        # code...
+        // }
+
+
+        // foreach ($numbers as $number) {
+        // }
+        // $cat = Category::find(1);
+        // $catz = $cat->blogs()->get();
+        // dd($catz);
+
+        return view('.\ajax', compact('catblog'));
     }
 
     /**

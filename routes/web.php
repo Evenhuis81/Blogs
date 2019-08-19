@@ -33,3 +33,5 @@ Route::patch('/blogpremium/{blog}', function (blog $blog) {
     ]);
     return back();
 });
+
+Route::get('ajax', 'BlogsController@ajax');
