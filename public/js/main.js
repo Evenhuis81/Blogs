@@ -1,5 +1,4 @@
 function category() {
-    // debugger;
     // if (document.getElementById("checkall").hasAttribute('checked')) {
     //     document.getElementById("checkall").removeAttribute('disabled');
     //     document.getElementById("checkall").removeAttribute('checked');
@@ -24,13 +23,15 @@ function category() {
         // document.getElementById("checkall").setAttribute('checked', 'checked');
         document.getElementById("checkall").disabled = true;
         document.getElementById("checkall").checked = true;
+        loadDocFull();
     } else {
         // document.getElementById("checkall").removeAttribute('disabled');
         // document.getElementById("checkall").removeAttribute('checked');
         document.getElementById("checkall").disabled = false;
         document.getElementById("checkall").checked = false;
+        loadDoc(catarrpush);
     }
-    loadDoc(catarrpush);
+    
 }
 
 function checkall() {
@@ -41,7 +42,7 @@ function checkall() {
     for (let element of catarray) {
         element.checked = false;
     }
-    loadDoc(catarrpush);
+    loadDocFull();
 }
 
 function loadDoc(arrr) {
@@ -54,6 +55,24 @@ function loadDoc(arrr) {
     };
     // xhttp.open("GET", "ajax.php", true);
     xhttp.open("GET", "ajax?numbers=" + arrr, true);
+    xhttp.send();
+}
+
+// function indexDefault() {
+//     var output = ''
+
+// }
+
+function loadDocFull() {
+    debugger;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("bloggies").innerHTML = this.responseText;
+        }
+    };
+    // xhttp.open("GET", "ajax.php", true);
+    xhttp.open("GET", "ajax2", true);
     xhttp.send();
 }
 

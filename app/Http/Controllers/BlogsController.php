@@ -34,12 +34,29 @@ class BlogsController extends Controller
         return view('blogs.create');
     }
 
-    public function ajax(Request $request)
+    public function ajax(Request $request, Blog $blog)
     {
 
         $numbers = ($request->get('numbers'));
         $category_ids = preg_split("/\,/", $numbers);
+        
+        // dd($blog);
+        // $blogs = [];
+        // $blogss = [];
+        // $blogstemp = Blog::all();
+        
+        // foreach ($blogstemp as $blog) {
+        //     foreach ($blog->categories as $blogcat) {
+        //         foreach ($category_ids as $catid) {
+        //             if ($catid == )
+        //         }
+        //     }
+        // }
 
+        $blogs = Blog::whereHas('categories', function($query) use ($category_ids) {
+            $query->whereIn('categories.id', $category_ids);
+        })->get();
+        
 
 
 
@@ -47,25 +64,27 @@ class BlogsController extends Controller
         //     $catblog[] = Category::find($str_arr[$i])->blogs()->get();
         // }
         // var_dump($catblog);
-        $catblog = [];
-
-        foreach ($category_ids as $category_id) {
-            $catbloo = Category::find($category_id)->blogs()->get();
 
 
-            foreach ($catbloo as $blog) {
-                if (count($catblog) == 0) {
-                    $catblog[] = $blog;
-                } else {
-                    for ($i = 0; $i < count($catblog); $i++) {
-                        if ($catblog[$i]->id == $blog->id) {
-                            break 2;
-                        }
-                    }
-                    $catblog[] = $blog;
-                }
-            }
-        }
+        // $blogs = [];
+
+        // foreach ($category_ids as $category_id) {
+        //     $catbloo = Category::find($category_id)->blogs()->get();
+
+
+        //     foreach ($catbloo as $blog) {
+        //         if (count($blogs) == 0) {
+        //             $blogs[] = $blog;
+        //         } else {
+        //             for ($i = 0; $i < count($blogs); $i++) {
+        //                 if ($blogs[$i]->id == $blog->id) {
+        //                     continue;
+        //                 } else $blogs[] = $blog;
+        //             } 
+                    
+        //         }
+        //     }
+        // }
 
         // array_push($catblog, $catbloo);
 
@@ -85,8 +104,12 @@ class BlogsController extends Controller
         // $cat = Category::find(1);
         // $catz = $cat->blogs()->get();
         // dd($catz);
+        return view('.\ajax', compact('blogs'));
+    }
 
-        return view('.\ajax', compact('catblog'));
+    public function ajax2(Blog $blog) {
+        $blogs = Blog::all();
+        return view('.\ajax', compact('blogs'));
     }
 
     /**
