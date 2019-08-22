@@ -8,6 +8,9 @@
     @csrf
     <label><input type="checkbox" name="premium" onChange="this.form.submit()" {{ $blog->premium ? "checked" : "" }}>Premium Content</label><br><br>
 </form>
+<p><a href="/form/{{ $blog->id }}">Voeg afbeelding toe</a></p>
+<br>
+
 
 <form method="POST" action="/blogs/{{ $blog->id }}" style="margin-bottom: 1em;">
         <!-- {{ method_field('PATCH') }}
@@ -35,7 +38,8 @@
     @foreach ($categories as $category)
         <label><input type="checkbox" name="categories[]" value="{{ $category->id }}" {{ $blog->categories->contains($category) ? "checked" : "" }}> {{ $category->name }}</label><br>
     @endforeach
-    
+    <br>
+
     <div class="field">
         <div class="control">
             <button type="submit" class="button is-link">Update Blog</button>

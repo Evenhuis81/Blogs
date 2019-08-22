@@ -2,6 +2,7 @@
 @section('title', 'Show a Blog')
 @section('pagetitle', 'Show Blog')
 @section('content')
+
 <h1 class="title">Title: {{ $blog->title }} </h1>
 
     <div class="content">

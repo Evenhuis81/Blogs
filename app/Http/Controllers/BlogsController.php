@@ -39,12 +39,12 @@ class BlogsController extends Controller
 
         $numbers = ($request->get('numbers'));
         $category_ids = preg_split("/\,/", $numbers);
-        
+
         // dd($blog);
         // $blogs = [];
         // $blogss = [];
         // $blogstemp = Blog::all();
-        
+
         // foreach ($blogstemp as $blog) {
         //     foreach ($blog->categories as $blogcat) {
         //         foreach ($category_ids as $catid) {
@@ -53,10 +53,10 @@ class BlogsController extends Controller
         //     }
         // }
 
-        $blogs = Blog::whereHas('categories', function($query) use ($category_ids) {
+        $blogs = Blog::whereHas('categories', function ($query) use ($category_ids) {
             $query->whereIn('categories.id', $category_ids);
         })->get();
-        
+
 
 
 
@@ -81,7 +81,7 @@ class BlogsController extends Controller
         //                     continue;
         //                 } else $blogs[] = $blog;
         //             } 
-                    
+
         //         }
         //     }
         // }
@@ -107,7 +107,8 @@ class BlogsController extends Controller
         return view('.\ajax', compact('blogs'));
     }
 
-    public function ajax2(Blog $blog) {
+    public function ajax2(Blog $blog)
+    {
         $blogs = Blog::all();
         return view('.\ajax', compact('blogs'));
     }
@@ -176,7 +177,8 @@ class BlogsController extends Controller
             'title' => ['required', 'min:3', 'max:255'],
             'description' => ['required', 'min:3']
         ]));
-        return redirect('/blogs');
+        $categories = Category::all();
+        return view('blogs.show', compact('blog'));
     }
 
     /**

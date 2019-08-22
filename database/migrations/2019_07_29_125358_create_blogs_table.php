@@ -20,7 +20,7 @@ class CreateBlogsTable extends Migration
             $table->unsignedBigInteger('owner_id')->default = 1;
             // $table->boolean('published')->default = 0;
             $table->boolean('premium')->default = 0;
-            // $table->string('image')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
             $table->foreign('owner_id')->references('id')->on('users');
         });
