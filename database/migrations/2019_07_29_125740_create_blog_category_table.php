@@ -18,8 +18,8 @@ class CreateBlogCategoryTable extends Migration
             $table->unsignedBigInteger('blog_id');
             $table->unsignedBigInteger('category_id');
             $table->timestamps();
-            $table->foreign('blog_id')->references('id')->on('blogs');
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('blog_id')->references('id')->on('blogs')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 

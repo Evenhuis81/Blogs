@@ -8,7 +8,13 @@
     @csrf
     <label><input type="checkbox" name="premium" onChange="this.form.submit()" {{ $blog->premium ? "checked" : "" }}>Premium Content</label><br><br>
 </form>
+@if ($blog->image == null)
 <p><a href="/form/{{ $blog->id }}">Voeg afbeelding toe</a></p>
+@else
+<img src="/images/default_profile.png">
+<p><a href="/form/{{ $blog->id }}">Verander afbeelding</a></p>
+@endif
+
 <br>
 
 

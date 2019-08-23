@@ -15,35 +15,44 @@ class FormController extends Controller
 
         $this->validate($request, [
 
-            'filename' => 'required',
-            'filename.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'filename' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'blognr' => 'required'
 
         ]);
 
         // dd($validated);
 
-        if ($request->hasfile('filename')) {
+        $image = $request->file('filename');
+        $name = $image->getClientOriginalName();
+        // dd($name);
+        // $image->move(public_path() . '/images/', $name);
+        $image->move(public_path('images'), $name);
 
-            foreach ($request->file('filename') as $image) {
-                $name = $image->getClientOriginalName();
-                $image->move(public_path() . '/images/', $name);
-                $data[] = $name;
-            }
-        }
+        // if ($request->hasfile('filename')) {
+        $blog = Blog::find($request->input('blognr'));
+        $blog->update(['image' => $name]);
+        
 
-        $form = new Form();
-        $form->filename = json_encode($data);
+        
+        // Blog::find()
+        
+            //     foreach ($request->file('filename') as $image) {
+        //         $name = $image->getClientOriginalName();
+        //         $image->move(public_path() . '/images/', $name);
+        //         $data[] = $name;
+        //     }
+        // }
+        // $form = new Form();
+        // $form->filename = json_encode($data);
+        // $form->save();
 
-
-        $form->save();
-
-        return back()->with('success', 'Your image has been successfully uploaded');
+        return back()->with('success', 'Your image has been successfully uploaded')->with('path', $name);
     }
 
-    public function create(Blog $blog)
-    {
-        return view('/images.create', compact('blog'));
-    }
+    // public function create(Blog $blog)
+    // {
+    //     return view('/images.create', compact('blog'));
+    // }
 
     public function show(Blog $blog)
     {

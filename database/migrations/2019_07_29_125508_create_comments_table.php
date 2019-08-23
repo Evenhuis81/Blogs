@@ -20,8 +20,8 @@ class CreateCommentsTable extends Migration
             $table->unsignedBigInteger('owner_id')->default = 1;
             $table->unsignedBigInteger('blog_id')->default = 1;
             $table->timestamps();
-            $table->foreign('owner_id')->references('id')->on('users');
-            $table->foreign('blog_id')->references('id')->on('blogs');
+            $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('blog_id')->references('id')->on('blogs')->onDelete('cascade');
         });
     }
 

@@ -38,5 +38,9 @@ Route::get('ajax', 'BlogsController@ajax');
 Route::get('ajax2', 'BlogsController@ajax2');
 
 Route::get('form/{blog}', 'FormController@show');
-Route::get('form', 'FormController@create');
+// Route::get('form', 'FormController@create');
 Route::post('form', 'FormController@store');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

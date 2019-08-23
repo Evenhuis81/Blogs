@@ -18,6 +18,7 @@
       @if(session('success'))
       <div class="alert alert-success">
         {{ session('success') }}
+        <img src="/images/{{ session('path') }}">
       </div> 
       @endif
        
@@ -26,7 +27,8 @@
   {{csrf_field()}}
 
         <div class="input-group control-group increment" >
-          <input type="file" name="filename" class="form-control" >
+          <input type="file" name="filename" class="form-control" accept="image/*">
+          <input type="hidden" name='blognr' value="{{ $blog->id }}">
           {{-- <div class="input-group-btn">  --}}
             {{-- <button class="btn btn-success" type="button"><i class="glyphicon glyphicon-plus"></i>Add</button> --}}
           {{-- </div> --}}
