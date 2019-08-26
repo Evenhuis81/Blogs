@@ -23,7 +23,14 @@
         <a href="/about">About</a>
         <a href="/contact">Contact</a>
         <a href="/categories">Categories</a>
-        <a href="/profile">Profile</a>
+        <a href="/profile">Profile</a><span>_________</span>
+        <a href="/register">Register</a> or
+        <a href="/login">Login</a>
+        @guest
+            <p>guest</p>
+        @else
+            <p>registered</p>
+        @endguest
     </div>
     <hr>
     <h1>@yield('pagetitle')</h1>

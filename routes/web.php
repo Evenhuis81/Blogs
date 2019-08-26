@@ -13,6 +13,7 @@ use \App\Blog;
 */
 
 Route::get('/', 'PagesController@home');
+
 Route::resource('blogs', 'BlogsController');
 
 Route::resource('/categories', 'CategoriesController');
