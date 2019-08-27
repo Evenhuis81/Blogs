@@ -24,12 +24,20 @@
         <a href="/contact">Contact</a>
         <a href="/categories">Categories</a>
         <a href="/profile">Profile</a><span>_________</span>
+        @guest
         <a href="/register">Register</a> or
         <a href="/login">Login</a>
-        @guest
-            <p>guest</p>
+        <p>You're not logged in</p>
         @else
-            <p>registered</p>
+            Welcome Mr/Mrs {{ auth()->user()->last_name }}.
+            (<a href="href="{{ route('logout') }}"            
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>)
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
         @endguest
     </div>
     <hr>

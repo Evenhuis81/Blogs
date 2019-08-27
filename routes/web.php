@@ -16,14 +16,14 @@ Route::get('/', 'PagesController@home');
 
 Route::resource('blogs', 'BlogsController');
 
-Route::resource('/categories', 'CategoriesController');
+Route::resource('/categories', 'CategoriesController')->middleware('auth');
 
 Route::get('/sortoldnew', 'SortController@oldnew');
 Route::get('/sortauthor', 'SortController@author');
 
 Route::get('/comments/{comment}/edit', 'BlogCommentsController@edit');
 Route::post('/blogs/{blog}/comments', 'BlogCommentsController@store');
-Route::patch('/comments/{comment}', 'BlogCommentsController@update');
+Route::patch('/comments/{comment}', 'BlogCommentsController@update')->name('updaa');
 Route::delete('comments/{comment}', 'BlogCommentsController@destroy');
 
 Route::post('blogcategories/{category}', 'BlogCategoriesController@store');

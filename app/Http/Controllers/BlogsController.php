@@ -9,6 +9,16 @@ use Illuminate\Http\Request;
 
 class BlogsController extends Controller
 {
+    // public function __construct() {
+    //     $this->middleware('auth');
+    //     $this->middleware('can:update,project')
+    //         ->except(['index', 'store', 'create']);
+    // }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth')->only(['store', 'update']);
+    //     $this->middleware('auth')->except(['store', 'update']);
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +44,7 @@ class BlogsController extends Controller
         return view('blogs.create');
     }
 
-    public function ajax(Request $request, Blog $blog)
+    public function ajax(Request $request, Blog $blog, ?User $user)
     {
 
         $numbers = ($request->get('numbers'));
@@ -56,6 +66,15 @@ class BlogsController extends Controller
         $blogs = Blog::whereHas('categories', function ($query) use ($category_ids) {
             $query->whereIn('categories.id', $category_ids);
         })->get();
+
+        // index example:
+        // auth()->id() 0 = guest , rest = user_id
+        // auth->user()  not sure what you get , all user data?
+        // auth->check() check to see if user is logged in , boolean
+        // auth(->)guest()  if guest , do this ...
+        // $projects = Project::where('owner_id', auth()->id())->get();  select * from projects where owner_id = auth user id
+
+
 
 
 
@@ -123,8 +142,10 @@ class BlogsController extends Controller
     {
         $attributes = request()->validate([
             'title' => ['required', 'min:3', 'max:255'],
-            'description' => ['required', 'min:3'],
+            'description' => ['required', 'min:3']
         ]);
+        // $attributes['owner_id'] = auth()->id();
+        // Project::create($attributes + ['owner_id' => 6]);
         Blog::create($attributes);
         return redirect('/blogs');
     }
@@ -137,6 +158,15 @@ class BlogsController extends Controller
      */
     public function show(Blog $blog)
     {
+        // if ($project->owner_id !== auth()->id()) {
+        //     abort(403);
+        // }
+        // abort_if($project->owner_id !== auth()->id(), 403);
+        // abort_if (! auth()->user()->owns($project), 403);
+        // abort_unless(auth()->user()->owns($project), 403);
+
+        // public function owns($project){ return (auth()->user()->id == $project->owner_id); }  in user model
+
         return view('blogs.show', compact('blog'));
     }
 

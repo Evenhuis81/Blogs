@@ -23,6 +23,9 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // $gate->before(function ($user) {
+        //     return $user->id == 2;  this is admin id, better >  check role in user model or something
+        // });
         $this->registerPolicies();
 
         //

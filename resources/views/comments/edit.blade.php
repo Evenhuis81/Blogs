@@ -2,7 +2,8 @@
 @section('title', 'Edit Page')
 @section('pagetitle', 'Edit Comment')
 @section('content')
-    <form method="POST" action="/comments/{{ $comment->id }}" style="margin-bottom: 1em;">
+    {{-- <form method="POST" action="/comments/{{ $comment->id }}" style="margin-bottom: 1em;"> --}}
+        <form method="POST" action="{{ route('updaa', ['comment' => $comment->id]) }}" style="margin-bottom: 1em;">
         <!-- {{ method_field('PATCH') }}
         {{ csrf_field() }} -->
         @method('PATCH')
