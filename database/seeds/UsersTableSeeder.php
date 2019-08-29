@@ -23,8 +23,23 @@ class UsersTableSeeder extends Seeder
                 'first_name' => Str::random(6),
                 'last_name' => Str::random(10),
                 'email' => Str::random(16) . '@gmail.com',
-                'password' => bcrypt('secret')
+                'password' => bcrypt('secret'),
+                'role' => 'guest'
             ]);
         }
+        User::create([
+            'first_name' => Str::random(6),
+            'last_name' => Str::random(10),
+            'email' => Str::random(16) . '@gmail.com',
+            'password' => bcrypt('secret'),
+            'role' => 'writer'
+        ]);
+        User::create([
+            'first_name' => Str::random(6),
+            'last_name' => Str::random(10),
+            'email' => Str::random(16) . '@gmail.com',
+            'password' => bcrypt('secret'),
+            'role' => 'admin'
+        ]);
     }
 }

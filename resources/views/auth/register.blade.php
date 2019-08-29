@@ -75,6 +75,18 @@
                             </div>
                         </div>
 
+                        <div class="form-group column-md-6">
+                            <label for="rolecheck" class=" checkbox-inline">{{ __('Select Role:  ') }}</label>
+                                <input id="rolecheck" type="radio" name="role" value="guest" >Guest
+                            <label for="rolecheck" class="checkbox-inline"></label>
+                                <input id="rolecheck" type="radio" name="role" value="writer" >Writer
+                                @error('role')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror                        
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

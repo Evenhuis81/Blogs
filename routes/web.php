@@ -13,17 +13,21 @@ use \App\Blog;
 */
 
 Route::get('/', 'PagesController@home');
+Route::get('/profile', 'PagesController@profile');
 
-Route::resource('blogs', 'BlogsController');
+Route::middleware(['auth'])->group(function () {
+    Route::resource('blogs', 'BlogsController');
+});
 
-Route::resource('/categories', 'CategoriesController')->middleware('auth');
+
+Route::resource('/categories', 'CategoriesController');
 
 Route::get('/sortoldnew', 'SortController@oldnew');
 Route::get('/sortauthor', 'SortController@author');
 
 Route::get('/comments/{comment}/edit', 'BlogCommentsController@edit');
 Route::post('/blogs/{blog}/comments', 'BlogCommentsController@store');
-Route::patch('/comments/{comment}', 'BlogCommentsController@update')->name('updaa');
+Route::patch('/comments/{comment}', 'BlogCommentsController@update');
 Route::delete('comments/{comment}', 'BlogCommentsController@destroy');
 
 Route::post('blogcategories/{category}', 'BlogCategoriesController@store');
@@ -41,6 +45,11 @@ Route::get('ajax2', 'BlogsController@ajax2');
 Route::get('form/{blog}', 'FormController@show');
 // Route::get('form', 'FormController@create');
 Route::post('form', 'FormController@store');
+
+
+
+
+
 
 Auth::routes();
 
