@@ -158,6 +158,10 @@ class BlogsController extends Controller
      */
     public function show(Blog $blog)
     {
+        // $this->authorize('view', $blog);
+        if (\Gate::denies('view', $blog)) {
+            return redirect('/');
+        }
         // if ($project->owner_id !== auth()->id()) {
         //     abort(403);
         // }

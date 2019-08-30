@@ -3,6 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
+
+// use Illuminate\Auth\Access\Gate;
+
+// use vendor\laravel\framework\src\Illuminate\Auth\Access\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -13,7 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+         'App\Blog' => 'App\Policies\BlogPolicy',
     ];
 
     /**
@@ -23,11 +27,11 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // $gate->before(function ($user) {
-        //     return $user->id == 2;  this is admin id, better >  check role in user model or something
-        // });
+
         $this->registerPolicies();
 
-        //
+        Gate::before(function ($user) {
+            return $user->id == 8;
+        });
     }
 }

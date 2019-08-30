@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use App\Blog;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -37,4 +38,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function owns(Blog $blog) {
+        return (auth()->user()->id == $blog->owner_id);
+    }
 }
