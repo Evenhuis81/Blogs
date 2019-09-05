@@ -31,7 +31,7 @@ function category() {
         document.getElementById("checkall").checked = false;
         loadDoc(catarrpush);
     }
-    
+
 }
 
 function checkall() {
@@ -58,13 +58,7 @@ function loadDoc(arrr) {
     xhttp.send();
 }
 
-// function indexDefault() {
-//     var output = ''
-
-// }
-
 function loadDocFull() {
-    debugger;
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -75,8 +69,3 @@ function loadDocFull() {
     xhttp.open("GET", "ajax2", true);
     xhttp.send();
 }
-
-// function indexDefault() {
-//     var output = ''
-
-// }

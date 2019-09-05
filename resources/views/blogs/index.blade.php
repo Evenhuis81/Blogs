@@ -1,6 +1,6 @@
 @extends('layout')
 @section('title', 'Blogs')
-@section('pagetitle', 'Blogs')
+@section('pagetitle', 'Blogs Page')
 @section('content')
 
 
@@ -40,12 +40,16 @@
         <label><input class="sortcat" type="checkbox" name="categories[]" onchange="category()" value="{{ $category->id }}">{{ $category->name }}</label><br>
     @endforeach
 </div>
-@endsection
+{{-- @endsection --}}
 
-@section('button')
+{{-- @section('button') --}}
+@auth    
+@if (auth()->user()->role == 'writer')
     <br>
     <br>
     <form method="get" action="/blogs/create">
-        <button class="button is-dark" type="submit">Create new Project</button>
+        <button class="button is-dark" type="submit">Create new Blog</button>
     </form>
+    @endif
+@endauth
 @endsection

@@ -39,7 +39,29 @@ class UsersTableSeeder extends Seeder
             'last_name' => Str::random(10),
             'email' => Str::random(16) . '@gmail.com',
             'password' => bcrypt('secret'),
+            'role' => 'writer'
+        ]);
+        User::create([
+            'first_name' => 'Imaadmin',
+            'last_name' => Str::random(10),
+            'email' => 'admin@admin.nl',
+            'password' => bcrypt('admin'),
             'role' => 'admin'
+        ]);
+        User::create([
+            'first_name' => 'Imaguest',
+            'last_name' => Str::random(10),
+            'email' => 'guest@guest.nl',
+            'password' => bcrypt('guest'),
+            'role' => 'guest',
+            'premium' => true
+        ]);
+        User::create([
+            'first_name' => 'Imawriter',
+            'last_name' => Str::random(10),
+            'email' => 'writer@writer.nl',
+            'password' => bcrypt('writer'),
+            'role' => 'writer'
         ]);
     }
 }

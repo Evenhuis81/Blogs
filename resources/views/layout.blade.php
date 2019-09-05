@@ -13,38 +13,16 @@
     
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> --}}
 </head>
 
  <body>
-    <div id="container">
-        <a href="/">Home</a>
-        <a href="/blogs">Blogs</a>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
-        <a href="/categories">Categories</a>
-        <a href="/profile">Profile</a><span>_________</span>
-        @guest
-        <a href="/register">Register</a> or
-        <a href="/login">Login</a>
-        <p>You're not logged in</p>
-        @else
-            Welcome Mr/Mrs {{ auth()->user()->last_name }}.
-            (<a href="href="{{ route('logout') }}"            
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>)
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-        @endguest
-    </div>
+    @include('menu')
     <hr>
     <h1>@yield('pagetitle')</h1>
     <hr>
     @yield('content')
-    @yield('button')
+    {{-- @yield('button') --}}
 </body>
 
 </html>

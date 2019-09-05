@@ -1,6 +1,7 @@
 <?php
 
 use \App\Blog;
+use \App\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,18 +13,27 @@ use \App\Blog;
 |
 */
 
-Route::get('/', 'PagesController@home');
-Route::get('/profile', 'PagesController@profile');
-
-Route::middleware(['auth'])->group(function () {
-    Route::resource('blogs', 'BlogsController');
+Route::get('/', 'PagesController@home')->name('home');
+Route::get('/about', 'PagesController@about')->name('about');
+Route::get('/contact', 'PagesController@contact')->name('contact');
+Route::get('/profile', 'PagesController@profile')->name('profile');
+Route::get('/guestprofiles', function (user $user) {
+    $users = User::where('role', 'guest')->get();
+    return view('gprof', compact('users'));
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::resource('blogs', 'BlogsController')->name('index', 'blogs');
+});
 
-Route::resource('/categories', 'CategoriesController');
+Route::get('ajax', 'BlogsController@ajax');
+Route::get('ajax2', 'BlogsController@ajax2');
 
-Route::get('/sortoldnew', 'SortController@oldnew');
-Route::get('/sortauthor', 'SortController@author');
+
+Route::resource('/categories', 'CategoriesController')->name('index', 'categories')->middleware('admin');
+
+// Route::get('/sortoldnew', 'SortController@oldnew');
+// Route::get('/sortauthor', 'SortController@author');
 
 Route::get('/comments/{comment}/edit', 'BlogCommentsController@edit');
 Route::post('/blogs/{blog}/comments', 'BlogCommentsController@store');
@@ -39,18 +49,19 @@ Route::patch('/blogpremium/{blog}', function (blog $blog) {
     return back();
 });
 
-Route::get('ajax', 'BlogsController@ajax');
-Route::get('ajax2', 'BlogsController@ajax2');
+Route::patch('/guestpremium/{guest}', function (user $user) {
+    $user->update([
+        'premium' => request()->has('guestpremium')
+    ]);
+    return back();
+});
+
+
 
 Route::get('form/{blog}', 'FormController@show');
 // Route::get('form', 'FormController@create');
 Route::post('form', 'FormController@store');
 
-
-
-
-
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');

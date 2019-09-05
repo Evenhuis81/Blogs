@@ -74,55 +74,6 @@ class BlogsController extends Controller
         // auth(->)guest()  if guest , do this ...
         // $projects = Project::where('owner_id', auth()->id())->get();  select * from projects where owner_id = auth user id
 
-
-
-
-
-
-        // for ($i = 0; $i < count($str_arr); $i++) {
-        //     $catblog[] = Category::find($str_arr[$i])->blogs()->get();
-        // }
-        // var_dump($catblog);
-
-
-        // $blogs = [];
-
-        // foreach ($category_ids as $category_id) {
-        //     $catbloo = Category::find($category_id)->blogs()->get();
-
-
-        //     foreach ($catbloo as $blog) {
-        //         if (count($blogs) == 0) {
-        //             $blogs[] = $blog;
-        //         } else {
-        //             for ($i = 0; $i < count($blogs); $i++) {
-        //                 if ($blogs[$i]->id == $blog->id) {
-        //                     continue;
-        //                 } else $blogs[] = $blog;
-        //             } 
-
-        //         }
-        //     }
-        // }
-
-        // array_push($catblog, $catbloo);
-
-
-
-
-        // $array = array_push($numbers);
-
-
-        // for ($i = 0; $i < strlen($numbers); $i++) {
-        # code...
-        // }
-
-
-        // foreach ($numbers as $number) {
-        // }
-        // $cat = Category::find(1);
-        // $catz = $cat->blogs()->get();
-        // dd($catz);
         return view('.\ajax', compact('blogs'));
     }
 
@@ -146,7 +97,7 @@ class BlogsController extends Controller
         ]);
         $attributes['owner_id'] = auth()->id();
         // Project::create($attributes + ['owner_id' => 6]);
-        Blog::create($attributes);
+        Blog::create($attributes + ['premium' => 1]);
         return redirect('/blogs');
     }
 
@@ -158,10 +109,10 @@ class BlogsController extends Controller
      */
     public function show(Blog $blog)
     {
-        $this->authorize('view', $blog);
-        if (\Gate::denies('view', $blog)) {
-            return redirect('/');
-        }
+        // $this->authorize('view', $blog);
+        // if (\Gate::denies('view', $blog)) {
+        //     return redirect('home');
+        // }
         // if ($project->owner_id !== auth()->id()) {
         //     abort(403);
         // }

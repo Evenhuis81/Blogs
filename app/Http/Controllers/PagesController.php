@@ -11,8 +11,8 @@ class PagesController extends Controller
     public function home()
     {
 
-        $blogs = Blog::orderBy('created_at', 'desc')->take(3)->get();
-        return view('welcome', compact('blogs'));
+        // $blogs = Blog::orderBy('created_at', 'desc')->take(3)->get();
+        return view('welcome');
     }
 
     public function profile(Blog $blog)
@@ -27,5 +27,15 @@ class PagesController extends Controller
         } else {
             return view('profile');
         }
+    }
+    
+    public function about()
+    {
+        return view('about');
+    }
+
+    public function contact()
+    {
+        return view('contact');
     }
 }
