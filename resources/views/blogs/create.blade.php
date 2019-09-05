@@ -1,6 +1,6 @@
 @extends('layout')
 @section('title', 'Create Blog')
-@section('pagetitle', 'Create New Blogs')
+@section('pagetitle', 'Create New Blog')
 @section('content')
 
 <form method="POST" action="/blogs">

@@ -144,7 +144,7 @@ class BlogsController extends Controller
             'title' => ['required', 'min:3', 'max:255'],
             'description' => ['required', 'min:3']
         ]);
-        // $attributes['owner_id'] = auth()->id();
+        $attributes['owner_id'] = auth()->id();
         // Project::create($attributes + ['owner_id' => 6]);
         Blog::create($attributes);
         return redirect('/blogs');
@@ -158,7 +158,7 @@ class BlogsController extends Controller
      */
     public function show(Blog $blog)
     {
-        // $this->authorize('view', $blog);
+        $this->authorize('view', $blog);
         if (\Gate::denies('view', $blog)) {
             return redirect('/');
         }
@@ -170,7 +170,6 @@ class BlogsController extends Controller
         // abort_unless(auth()->user()->owns($project), 403);
 
         // public function owns($project){ return (auth()->user()->id == $project->owner_id); }  in user model
-
         return view('blogs.show', compact('blog'));
     }
 
