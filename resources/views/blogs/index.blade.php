@@ -44,7 +44,7 @@
 
 {{-- @section('button') --}}
 @auth    
-@if (auth()->user()->role == 'writer')
+@if (auth()->user()->role == 'writer' || 'admin')
     <br>
     <br>
     <form method="get" action="/blogs/create">

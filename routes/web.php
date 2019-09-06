@@ -16,13 +16,13 @@ use \App\User;
 Route::get('/', 'PagesController@home')->name('home');
 Route::get('/about', 'PagesController@about')->name('about');
 Route::get('/contact', 'PagesController@contact')->name('contact');
-Route::get('/profile', 'PagesController@profile')->name('profile');
 Route::get('/guestprofiles', function (user $user) {
     $users = User::where('role', 'guest')->get();
     return view('gprof', compact('users'));
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', 'PagesController@profile')->name('profile');
     Route::resource('blogs', 'BlogsController')->name('index', 'blogs');
 });
 
@@ -42,16 +42,16 @@ Route::delete('comments/{comment}', 'BlogCommentsController@destroy');
 
 Route::post('blogcategories/{category}', 'BlogCategoriesController@store');
 
-Route::patch('/blogpremium/{blog}', function (blog $blog) {
+Route::patch('/blogpremium/{blog}', function (Blog $blog) {
     $blog->update([
         'premium' => request()->has('premium')
     ]);
     return back();
 });
 
-Route::patch('/guestpremium/{guest}', function (user $user) {
+Route::patch('/guestpremium/{user}', function (User $user) {
     $user->update([
-        'premium' => request()->has('guestpremium')
+        'premium' => request()->has('premium')
     ]);
     return back();
 });

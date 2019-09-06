@@ -12,12 +12,15 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        // DB::table('users')->delete();
         // DB::table('users')->insert([
         //     'firstname' => Str::random(6),
         //     'lastname' => Str::random(10),
         //     'email' => Str::random(16) . '@gmail.com',
         //     'password' => bcrypt('secret')
         // ]);
+        
+        
         for ($i = 0; $i < 3; $i++) {
             User::create([
                 'first_name' => Str::random(6),
@@ -63,5 +66,6 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('writer'),
             'role' => 'writer'
         ]);
+        // factory(User::class,10)->create();
     }
 }

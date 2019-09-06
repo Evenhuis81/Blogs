@@ -32,7 +32,7 @@
         </div>
         @include ('errors')
     </form>
-
+    {{ dd($blog->comments->count()) }}
     @if ($blog->comments->count())
     
         @foreach ($blog->comments as $comment)
