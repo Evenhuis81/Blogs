@@ -11,12 +11,20 @@
 @if ($blog->image == null)
 <p><a href="/form/{{ $blog->id }}">Voeg afbeelding toe</a></p>
 @else
-<img src="/images/default_profile.png">
+<img src="/images/{{ $blog->image }}">
 <p><a href="/form/{{ $blog->id }}">Verander afbeelding</a></p>
+<form method="POST" action="/form/{{ $blog->id }}">    
+    {{ method_field('DELETE') }}
+    {{ csrf_field() }}
+    <div class="field">
+        <div class="control">
+            <button type="submit" class="button is-danger">Delete Picture</button>
+        </div>
+    </div>
+</form>
 @endif
-
 <br>
-
+<br>
 
 <form method="POST" action="/blogs/{{ $blog->id }}" style="margin-bottom: 1em;">
         <!-- {{ method_field('PATCH') }}

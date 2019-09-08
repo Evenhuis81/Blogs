@@ -10,11 +10,16 @@ class BlogCommentsController extends Controller
 {
     public function store(Blog $blog)
     {
-        $attributes = request()->validate([
+        $attributes1 = request()->validate([
             'description' => 'required|min:3',
-            'subject' => 'required|min:3'
+            'subject' => 'required|min:3',
+            // 'blog_id' => $blog->id ??
+            // aka the blog_id magical laravel fill it in
         ]);
-        $blog->addComment($attributes);
+        $attributes2 = array('owner_id' => auth()->user()->id);
+        $attributes3 = $attributes1 + $attributes2;
+        // dd($attributes3);
+        $blog->addComment($attributes3);
         // Task::create([
         //     'post_id' => $post->id,
         //     'description' => request('description')
@@ -46,7 +51,9 @@ class BlogCommentsController extends Controller
 
     public function destroy(Comment $comment)
     {
+        $commid = $comment->blog_id;
         $comment->delete();
-        return redirect('comments.edit', compact('comment'));
+        return redirect()->route('blogs.show', ['id' => $commid]);
+        
     }
 }

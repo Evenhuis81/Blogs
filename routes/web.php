@@ -2,43 +2,35 @@
 
 use \App\Blog;
 use \App\User;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', 'PagesController@home')->name('home');
 Route::get('/about', 'PagesController@about')->name('about');
 Route::get('/contact', 'PagesController@contact')->name('contact');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', 'PagesController@profile')->name('profile');
+    Route::resource('blogs', 'BlogsController')->name('index', 'blogs');
+    
+    Route::get('ajax', 'BlogsController@ajax');
+    Route::get('ajax2', 'BlogsController@ajax2');
+
+    Route::get('/comments/{comment}/edit', 'BlogCommentsController@edit');
+    Route::post('/blogs/{blog}/comments', 'BlogCommentsController@store');
+    Route::patch('/comments/{comment}', 'BlogCommentsController@update')->name('updaa');
+    Route::delete('comments/{comment}', 'BlogCommentsController@destroy');
+});
+
 Route::get('/guestprofiles', function (user $user) {
     $users = User::where('role', 'guest')->get();
     return view('gprof', compact('users'));
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/profile', 'PagesController@profile')->name('profile');
-    Route::resource('blogs', 'BlogsController')->name('index', 'blogs');
-});
-
-Route::get('ajax', 'BlogsController@ajax');
-Route::get('ajax2', 'BlogsController@ajax2');
-
-
-Route::resource('/categories', 'CategoriesController')->name('index', 'categories')->middleware('admin');
+Route::resource('/categories', 'CategoriesController')->middleware('admin')->name('index', 'categories');
 
 // Route::get('/sortoldnew', 'SortController@oldnew');
 // Route::get('/sortauthor', 'SortController@author');
 
-Route::get('/comments/{comment}/edit', 'BlogCommentsController@edit');
-Route::post('/blogs/{blog}/comments', 'BlogCommentsController@store');
-Route::patch('/comments/{comment}', 'BlogCommentsController@update');
-Route::delete('comments/{comment}', 'BlogCommentsController@destroy');
+
 
 Route::post('blogcategories/{category}', 'BlogCategoriesController@store');
 
@@ -61,6 +53,7 @@ Route::patch('/guestpremium/{user}', function (User $user) {
 Route::get('form/{blog}', 'FormController@show');
 // Route::get('form', 'FormController@create');
 Route::post('form', 'FormController@store');
+Route::delete('form/{blog}', 'FormController@destroy');
 
 Auth::routes();
 

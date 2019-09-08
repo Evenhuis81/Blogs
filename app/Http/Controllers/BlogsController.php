@@ -109,6 +109,9 @@ class BlogsController extends Controller
      */
     public function show(Blog $blog)
     {
+        if (auth()->user()->role == 'guest' && auth()->user()->premium == false && $blog->premium == true) {
+            abort(403);
+        }
         // $this->authorize('view', $blog);
         // if (\Gate::denies('view', $blog)) {
         //     return redirect('home');
@@ -174,6 +177,6 @@ class BlogsController extends Controller
     public function destroy(Blog $blog)
     {
         $blog->delete();
-        return redirect('/blogs');
+        return redirect(route('blogs'));
     }
 }

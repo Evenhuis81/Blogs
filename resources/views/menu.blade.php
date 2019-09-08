@@ -4,13 +4,13 @@
     <a href="{{ route('about') }}">About</a>
     <a href="{{ route('contact') }}">Contact</a>
     <a href="{{ route('categories') }}">Categories</a>
-    <a href="{{ route('profile') }}">Profile</a><span>_________</span>
+    <a href="{{ route('profile') }}">Profile</a><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
     @guest
     <a href="{{ route('register') }}">Register</a> or
     <a href="{{ route('login') }}">Login</a>
     <p>You're not logged in</p>
     @else
-        Welcome Mr/Mrs {{ auth()->user()->last_name }}.
+        <strong>Welcome</strong> {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}.
         (<a href="href="{{ route('logout') }}"            
         onclick="event.preventDefault();
         document.getElementById('logout-form').submit();">

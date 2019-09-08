@@ -14,14 +14,18 @@
 <a href="/guestprofiles">Set premium for guestusers</a>
 @elseif (auth()->user()->role == 'writer')
 @foreach ($blogs as $blog)
-<a href="/blogs/{{ $blog->id }}">Blog title: {{ $blog->title }} >> Blog description: {{ $blog->description }} >> created at: {{ $blog->created_at->diffForHumans() }}</a><br>
-    Category: 
-     @foreach ($blog->categories as $category)
-     {{ $category->name }}
-     @endforeach
 <p>------------------------------------------------------------------------------------------------------------------------------</p>
+<a href="/blogs/{{ $blog->id }}">Blog title: {{ $blog->title }} >> Blog description: {{ $blog->description }} >> created at: {{ $blog->created_at->diffForHumans() }}</a><br>
+    @if ($blog->categories->count())
+        Category: 
+        @foreach ($blog->categories as $category)
+        {{ $category->name }}
+        @endforeach
+     @endif
+     @if ($blog->image !== null)
+     <img src="/images/{{ $blog->image }}">
+    @endif
 @endforeach
-
 @endif
 <hr>
 <a href="{{ route('blogs') }}">Please click here to continue to the blogs</a>

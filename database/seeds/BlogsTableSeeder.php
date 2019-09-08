@@ -13,13 +13,19 @@ class BlogsTableSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 1; $i < 4; $i++) {
+        for ($i = 1; $i < 10; $i++) {
             Blog::create([
                 'created_at' => Carbon::now()->subDays(rand(1,30))->format('Y-m-d H:i:s'),
                 'title' => Str::random(6),
                 'description' => Str::random(10),
                 'owner_id' => $i
             ]);
+        }
+        $blogs = Blog::all();
+        foreach ($blogs as $blog) {
+                $blog->update([
+                'premium' => rand(0,1)
+                ]);
         }
     }
 }

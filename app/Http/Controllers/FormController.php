@@ -58,4 +58,11 @@ class FormController extends Controller
     {
         return view('/images.create', compact('blog'));
     }
+
+    public function destroy(Blog $blog)
+    {
+        $blog->update(['image' => null]);
+        // delete picture from public folder
+        return redirect()->route('blogs.edit', ['id' => $blog->id]);
+    }
 }
