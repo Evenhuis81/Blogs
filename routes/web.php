@@ -18,6 +18,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/blogs/{blog}/comments', 'BlogCommentsController@store');
     Route::patch('/comments/{comment}', 'BlogCommentsController@update')->name('updaa');
     Route::delete('comments/{comment}', 'BlogCommentsController@destroy');
+
+    Route::get('form/{blog}', 'FormController@show');
+    Route::post('form', 'FormController@store');
+    Route::delete('form/{blog}', 'FormController@destroy');
 });
 
 Route::get('/guestprofiles', function (user $user) {
@@ -30,9 +34,7 @@ Route::resource('/categories', 'CategoriesController')->middleware('admin')->nam
 // Route::get('/sortoldnew', 'SortController@oldnew');
 // Route::get('/sortauthor', 'SortController@author');
 
-
-
-Route::post('blogcategories/{category}', 'BlogCategoriesController@store');
+// Route::post('blogcategories/{category}', 'BlogCategoriesController@store');
 
 Route::patch('/blogpremium/{blog}', function (Blog $blog) {
     $blog->update([
@@ -48,12 +50,7 @@ Route::patch('/guestpremium/{user}', function (User $user) {
     return back();
 });
 
-
-
-Route::get('form/{blog}', 'FormController@show');
 // Route::get('form', 'FormController@create');
-Route::post('form', 'FormController@store');
-Route::delete('form/{blog}', 'FormController@destroy');
 
 Auth::routes();
 
