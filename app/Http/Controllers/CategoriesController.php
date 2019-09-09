@@ -75,7 +75,10 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $category->update(request(['name', 'description']));
+        $category->update(request()->validate([
+            'name' => ['required', 'min:3', 'max:255'],
+            'description' => ['required', 'min:3']
+            ]));
         return redirect('/categories');
     }
     /**

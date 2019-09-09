@@ -13,6 +13,7 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('ajax', 'BlogsController@ajax');
     Route::get('ajax2', 'BlogsController@ajax2');
+    Route::get('checkprem', 'BlogsController@ajax3');
 
     Route::get('/comments/{comment}/edit', 'BlogCommentsController@edit');
     Route::post('/blogs/{blog}/comments', 'BlogCommentsController@store');
@@ -50,8 +51,5 @@ Route::patch('/guestpremium/{user}', function (User $user) {
     return back();
 });
 
-// Route::get('form', 'FormController@create');
-
 Auth::routes();
-
 // Route::get('/home', 'HomeController@index')->name('home');

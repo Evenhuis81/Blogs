@@ -77,6 +77,25 @@ class BlogsController extends Controller
         return view('.\ajax', compact('blogs'));
     }
 
+    public function ajax3(Request $request, Blog $blog)
+    {
+        $blogid = ($request->get('blogid'));
+        $blog = Blog::find($blogid);
+        if ($blog->premium == true) {
+            $blog->update([
+                'premium' => false
+            ]);
+        } else {
+            $blog->update([
+                'premium' => true
+            ]);
+        }
+        // $blog->update([
+        //     'premium' => request()->has('premium')
+        // ]);
+        return view('.\checkprem', compact('blog'));
+    }
+
     public function ajax2(Blog $blog)
     {
         $blogs = Blog::all();
@@ -164,7 +183,7 @@ class BlogsController extends Controller
             'title' => ['required', 'min:3', 'max:255'],
             'description' => ['required', 'min:3']
         ]));
-        $categories = Category::all();
+        // $categories = Category::all();
         return view('blogs.show', compact('blog'));
     }
 

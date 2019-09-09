@@ -69,3 +69,15 @@ function loadDocFull() {
     xhttp.open("GET", "ajax2", true);
     xhttp.send();
 }
+
+function checkpremfunc(blogid) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("checkprem").innerHTML = this.responseText;
+        }
+    };
+    xhttp.open("GET", "/checkprem?blogid=" + blogid, true);
+    xhttp.send();
+    // document.myform.submit();
+}

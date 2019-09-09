@@ -3,10 +3,12 @@
 @section('pagetitle', 'Edit Blog')
 @section('content')
 
-<form method="POST" action="/blogpremium/{{ $blog->id }}">
+<form name="myform" method="POST" action="/blogpremium/{{ $blog->id }}">
     @method('PATCH')
     @csrf
-    <label><input type="checkbox" name="premium" onChange="this.form.submit()" {{ $blog->premium ? "checked" : "" }}>Premium Content</label><br><br>
+    <div id="checkprem">
+        @include('checkprem')
+    </div>
 </form>
 @if ($blog->image == null)
 <p><a href="/form/{{ $blog->id }}">Voeg afbeelding toe</a></p>

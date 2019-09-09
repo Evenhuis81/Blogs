@@ -40,7 +40,10 @@ class BlogCommentsController extends Controller
 
     public function update(Comment $comment)
     {
-        $comment->update(request(['subject', 'description']));
+        $comment->update(request()->validate([
+            'subject' => ['required', 'min:3', 'max:255'],
+            'description' => ['required', 'min:3']
+            ]));
         return redirect()->route('blogs.show', ['id' => $comment->blog_id]);
     }
 
