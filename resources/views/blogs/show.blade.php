@@ -7,6 +7,9 @@
 
     <div class="content">
         <h4>Description: {{ $blog->description }}</h4>
+        @if ($blog->categories->count())
+            <p>Categories: @foreach ($blog->categories as $category) {{ $category->name }} @endforeach</p>
+        @endif
         @if ($blog->image !== null)
             <img src="/images/{{ $blog->image }}">
         @endif

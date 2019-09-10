@@ -23,7 +23,7 @@ class PagesController extends Controller
 
         if (auth()->user()->role == 'writer') {
             $blogs = Blog::where('owner_id', auth()->id())->get();
-            return view('profile', compact('blogs'));
+            return view('profile', ['blogs' => auth()->user()->blogs]);
         } else {
             return view('profile');
         }

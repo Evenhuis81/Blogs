@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Blog;
 use App\Category;
 use App\User;
+use App\Mail\BlogCreated;
 use Illuminate\Http\Request;
 
 class BlogsController extends Controller
@@ -117,6 +118,7 @@ class BlogsController extends Controller
         $attributes['owner_id'] = auth()->id();
         // Project::create($attributes + ['owner_id' => 6]);
         Blog::create($attributes + ['premium' => 1]);
+
         return redirect('/blogs');
     }
 
@@ -167,7 +169,8 @@ class BlogsController extends Controller
      */
     public function update(Request $request, Blog $blog)
     {
-        $blog->categories()->sync(request('categories'));
+        // dd(request('categories'));
+        
         // if (request()->has('cid')) {
         //     if (request()->has('category')) {
         //         dd('add category');
@@ -183,6 +186,7 @@ class BlogsController extends Controller
             'title' => ['required', 'min:3', 'max:255'],
             'description' => ['required', 'min:3']
         ]));
+        $blog->categories()->sync(request('categories'));
         // $categories = Category::all();
         return view('blogs.show', compact('blog'));
     }

@@ -6,7 +6,7 @@ use App\Blog;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-// use Blog\App;
+
 
 class User extends Authenticatable
 {
@@ -40,5 +40,10 @@ class User extends Authenticatable
     ];
     public function owns(Blog $blog) {
         return (auth()->user()->id == $blog->owner_id);
+    }
+
+    public function blogs() {
+        return $this->hasMany(Blog::class, 'owner_id');
+        // return (auth()->user()->id == $blog->owner_id);
     }
 }
