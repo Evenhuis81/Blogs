@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Mail\BlogCreated;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,17 +12,16 @@ class Blog extends Model
 
     protected $dates = ['created_at'];
 
-    protected static function boot()
-    {
-        parent::boot();
+    // protected static function boot()
+    // {
+    //     // parent::boot();
 
-        static::created(function ($blog) {
-                Mail::to($blog->author->email)->send(
-                // new BlogCreated($blog)
-                new BlogCreated($blog)
-            );
-        });
-    }
+    //     // static::created(function ($blog) {
+    //     //         Mail::to($blog->author->email)->send(
+    //     //         new BlogCreated($blog)
+    //     //     );
+    //     // });
+    // }
 
 
     public function author()

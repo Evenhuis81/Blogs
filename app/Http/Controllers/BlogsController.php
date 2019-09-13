@@ -78,10 +78,8 @@ class BlogsController extends Controller
         return view('.\ajax', compact('blogs'));
     }
 
-    public function ajax3(Request $request, Blog $blog)
-    {
-        $blogid = ($request->get('blogid'));
-        $blog = Blog::find($blogid);
+    public function ajax3(Blog $blog)
+    {        
         if ($blog->premium == true) {
             $blog->update([
                 'premium' => false
@@ -108,9 +106,12 @@ class BlogsController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+     */ 
+    
+     public function store(Request $request)
     {
+        // dd($this);
+        // $this->validateProject();
         $attributes = request()->validate([
             'title' => ['required', 'min:3', 'max:255'],
             'description' => ['required', 'min:3']
@@ -118,6 +119,8 @@ class BlogsController extends Controller
         $attributes['owner_id'] = auth()->id();
         // Project::create($attributes + ['owner_id' => 6]);
         Blog::create($attributes + ['premium' => 1]);
+
+        // Mail::to('');
 
         return redirect('/blogs');
     }
@@ -128,6 +131,8 @@ class BlogsController extends Controller
      * @param  \App\Blog  $blog
      * @return \Illuminate\Http\Response
      */
+
+
     public function show(Blog $blog)
     {
         if (auth()->user()->role == 'guest' && auth()->user()->premium == false && $blog->premium == true) {

@@ -11,20 +11,22 @@
 @if (auth()->user()->role == 'guest')
 <h6>premium guest: {{ auth()->user()->premium ? 'yes' : 'no' }}</h6>
 @elseif (auth()->user()->role == 'admin')
-<a href="/guestprofiles">Set premium for guestusers</a>
+<a href="/guestprofiles">Manage Guestusers (weekly digest / set premium)</a>
 @elseif (auth()->user()->role == 'writer')
 @foreach ($blogs as $blog)
-<p>------------------------------------------------------------------------------------------------------------------------------</p>
-<a href="/blogs/{{ $blog->id }}">Blog title: {{ $blog->title }} >> Blog description: {{ $blog->description }} >> created at: {{ $blog->created_at->diffForHumans() }}</a><br>
-    @if ($blog->categories->count())
-        Category: 
-        @foreach ($blog->categories as $category)
-        {{ $category->name }}
-        @endforeach
-     @endif
-     @if ($blog->image !== null)
-     <img src="/images/{{ $blog->image }}">
-    @endif
+<p>------------------------------------------------------------------------------------------------------------------------------
+</p>
+<a href="/blogs/{{ $blog->id }}">Blog title: {{ $blog->title }} >> Blog description: {{ $blog->description }} >> created
+    at: {{ $blog->created_at->diffForHumans() }}</a><br>
+@if ($blog->categories->count())
+Category:
+@foreach ($blog->categories as $category)
+{{ $category->name }}
+@endforeach
+@endif
+@if ($blog->image !== null)
+<img src="/images/{{ $blog->image }}">
+@endif
 @endforeach
 @endif
 <hr>

@@ -2,6 +2,7 @@
 
 use \App\Blog;
 use \App\User;
+use Illuminate\Http\Request;
 
 Route::get('/', 'PagesController@home')->name('home');
 Route::get('/about', 'PagesController@about')->name('about');
@@ -13,7 +14,7 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('ajax', 'BlogsController@ajax');
     Route::get('ajax2', 'BlogsController@ajax2');
-    Route::get('checkprem', 'BlogsController@ajax3');
+    Route::post('checkprem/{blog}', 'BlogsController@ajax3');
 
     Route::get('/comments/{comment}/edit', 'BlogCommentsController@edit');
     Route::post('/blogs/{blog}/comments', 'BlogCommentsController@store');
@@ -28,6 +29,11 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/guestprofiles', function (user $user) {
     $users = User::where('role', 'guest')->get();
     return view('gprof', compact('users'));
+});
+
+Route::post('digest', function (Request $request) {
+    dd($request);
+    return back();
 });
 
 Route::resource('/categories', 'CategoriesController')->middleware('admin')->name('index', 'categories');

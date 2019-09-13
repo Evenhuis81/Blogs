@@ -7,20 +7,18 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class BlogCreated extends Mailable
+class WeeklyBlogDigest extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $blog;
-    
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($blog)
+    public function __construct()
     {
-        $this->blog = $blog;
+        //
     }
 
     /**
@@ -30,8 +28,6 @@ class BlogCreated extends Mailable
      */
     public function build()
     {
-        return $this->markdown('mail.blog-created');
-        // return $this->from('example@example.com')
-        // ->view('emails.orders.shipped');
+        return $this->markdown('mail.weeklyblogdigest');
     }
 }

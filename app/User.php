@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-use App\Blog;
+// use App\Blog;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -45,5 +45,9 @@ class User extends Authenticatable
     public function blogs() {
         return $this->hasMany(Blog::class, 'owner_id');
         // return (auth()->user()->id == $blog->owner_id);
+    }
+
+    public function digest() {
+        return $this->hasOne(Digest::class, 'user_id');
     }
 }
