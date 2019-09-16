@@ -3,8 +3,9 @@
 
 Here's all the blogs from the last week. Enjoy.
 example:
-@foreach ($blogs as $blog)
+{{-- @foreach ($dblogs as $blog)
 {{ $blog->title }}
+@endforeach --}}
 
 @component('mail::button', ['url' => ''])
 View Blogs

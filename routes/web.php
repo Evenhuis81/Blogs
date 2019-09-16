@@ -43,7 +43,7 @@ Route::post('digest', function (Request $request) {
     }
     $email = $user->email;
     \Mail::to($email)->send(
-        new WeeklyBlogDigest()
+        new WeeklyBlogDigest($dblogs)
     );
 
 
