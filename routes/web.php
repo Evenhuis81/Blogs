@@ -3,6 +3,7 @@
 use \App\Blog;
 use \App\User;
 use Illuminate\Http\Request;
+use App\Mail\WeeklyBlogDigest;
 
 Route::get('/', 'PagesController@home')->name('home');
 Route::get('/about', 'PagesController@about')->name('about');
@@ -32,7 +33,20 @@ Route::get('/guestprofiles', function (user $user) {
 });
 
 Route::post('digest', function (Request $request) {
-    dd($request);
+    $user = User::find($request->digestselect);
+    if ($user->premium == 0) {
+        $dblogs = Blog::where('premium', 0)->get();
+        // and ofc , on create dates of that week
+    } else {
+        $dblogs = Blog::all();
+        // and ofc, on create dates of that week
+    }
+    $email = $user->email;
+    \Mail::to($email)->send(
+        new WeeklyBlogDigest()
+    );
+
+
     return back();
 });
 

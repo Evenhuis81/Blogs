@@ -12,9 +12,21 @@ class DigestsTableSeeder extends Seeder
      */
     public function run()
     {
-        Digest::create([
-            'user_id' => 4,
-            'sent' => 1
-        ]);
+        // Digest::create([
+        //     'user_id' => 4,
+        //     'week' => 37
+        // ]);
+
+        // Digest::create([
+        //     'user_id' => $id,
+        //     'week' => 37
+        // ]);
+
+        for ($i = 1; $i < 6; $i++) {
+            Digest::create([
+                'user_id' => $i,
+                'week' => 37
+            ]);
+        }
     }
 }

@@ -7,40 +7,32 @@
 <form method="POST" action="/guestpremium/{{ $user->id }}">
     @method('PATCH')
     @csrf
-    <label><input type="checkbox" name="premium" onChange="this.form.submit()" id="guest{{ $user->id }}"
-            {{ $user->premium ? "checked" : "" }}>{{ $user->last_name }} - {{ $user->email }} >>> digest week 36:
-        <span id="sguest{{ $user->id }}">{{ $user->digest ? "Yes" : "No"}}</span></label><br>
+    <label class="labl"><input type="checkbox" name="premium" onChange="this.form.submit()" id="{{ $user->id }}"
+            {{ $user->premium ? "checked" : "" }}>{{ $user->last_name }} - {{ $user->email }} >>> digest week
+        {{ date('W') }}:
+        <span id="sguest{{ $user->id }}">{{ !is_null($user->digest) ? "Yes" : "No" }}</span></label><br>
 
 </form>
 @endforeach
 <hr>
 
-<h1>Week 36: bundel berichten en stuur per e-mail naar gebruiker:</h1>
+<h1>Week {{ date('W') }}: bundel berichten en stuur per e-mail naar gebruiker:</h1>
 
-{{--<div id="">
-        @include('')
-        @yield('blogs.indexall')
-    </div> --}}
-
-<script>
-
-</script>
-
-<form method="POST" action="/digest">
+<form method="POST" action="digest">
     {{-- @method('PATCH') --}}
     @csrf
-    <select name="digestselect" oninput="test(this)">
+    <select id="selectt" name="digestselect" oninput="test(this)">
         <optgroup label="Premium Guests">
             @foreach($users as $user)
             @if ($user->premium)
-            <option value="guest{{ $user->id . $user->digest }}">{{ $user->last_name }}</option>
+            <option value="{{ $user->id }}">{{ $user->last_name }}</option>
             @endif
             @endforeach
         </optgroup>
         <optgroup label="Non-Premium Guests">
             @foreach($users as $user)
             @if (!$user->premium)
-            <option value="guest{{ $user->id }}">{{ $user->last_name }}</option>
+            <option value="{{ $user->id }}">{{ $user->last_name }}</option>
             @endif
             @endforeach
         </optgroup>

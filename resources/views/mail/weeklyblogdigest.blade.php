@@ -1,10 +1,13 @@
 @component('mail::message')
-# Introduction
+# Weekly digest
 
-The body of your message.
+Here's all the blogs from the last week. Enjoy.
+example:
+@foreach ($blogs as $blog)
+{{ $blog->title }}
 
 @component('mail::button', ['url' => ''])
-Button Text
+View Blogs
 @endcomponent
 
 Thanks,<br>

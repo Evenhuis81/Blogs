@@ -3,6 +3,7 @@
 namespace App;
 // use App\Blog;
 
+use App\Digest;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;

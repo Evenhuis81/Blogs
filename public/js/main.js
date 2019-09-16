@@ -120,12 +120,44 @@ function getMeta(metaName) {
 }
 
 function test(sel) {
+
     // var optval = document.getElementById('optval').textContent;
-    var optionvalue = sel.value;
-    var neww = document.getElementById(optionvalue);
-    var neww2 = document.getElementById('s' + sel.value).innerHTML;
-    console.log(sel.value);
+    // var optionvalue = sel.value;
+    // var digestsent = document.getElementById('')
+    // var neww = document.getElementById(optionvalue);
+    // var neww2 = document.getElementById('s' + sel.value).innerHTML;
+
+    // console.log(sel.value);
+
+    var labl3 = document.getElementById(`sguest${sel.value}`).innerHTML;
+    if (labl3 == 'Yes') {
+        document.getElementById('msg').innerHTML = "This guest already has the digest";
+        document.getElementById('btnx').disabled = true;
+    } else {
+        document.getElementById('msg').innerHTML = "";
+        document.getElementById('btnx').disabled = false;
+    }
 
     // document.getElementById('msg').innerHTML = optionvalue + " already has it!";
     // document.getElementById('btnx').disabled = true;
 }
+
+
+// console.log(document.getElementsByClassName('selectt'));
+
+// var labl2 = Array.from(labl);
+
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    var labl = document.getElementById('selectt').value;
+    var labl2 = document.getElementById(`sguest${labl}`).innerHTML;
+    if (labl2 == 'Yes') {
+        document.getElementById('msg').innerHTML = "This guest already has it";
+        document.getElementById('btnx').disabled = true;
+    }
+    // console.log(labl2);
+
+
+})
+
+// console.log(document.getElementById('selectt'));
