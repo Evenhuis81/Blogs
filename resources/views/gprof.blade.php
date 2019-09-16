@@ -23,6 +23,8 @@
     @csrf
     <select id="selectt" name="digestselect" oninput="test(this)">
         <optgroup label="Premium Guests">
+            {{-- <option disabled selected value> -- select an option -- </option> --}}
+            <option id="opthid" style="display:none"></option>
             @foreach($users as $user)
             @if ($user->premium)
             <option value="{{ $user->id }}">{{ $user->last_name }}</option>
@@ -40,5 +42,6 @@
     <button id="btnx" type="submit">Send Digest</button>
 </form>
 <p id="msg"></p>
+<a href="digest2" id="msg2"></a>
 
 @endsection

@@ -149,15 +149,17 @@ function test(sel) {
 
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    var labl = document.getElementById('selectt').value;
-    var labl2 = document.getElementById(`sguest${labl}`).innerHTML;
-    if (labl2 == 'Yes') {
-        document.getElementById('msg').innerHTML = "This guest already has it";
-        document.getElementById('btnx').disabled = true;
-    }
+    // var labl = document.getElementById('selectt').value;
+    // var labl2 = document.getElementById(`sguest${labl}`).innerHTML;
+    // if (labl2 == 'Yes') {
+    //     document.getElementById('msg').innerHTML = "This guest already has it";
+    //     document.getElementById('btnx').disabled = true;
+    // document.getElementById('msg2').innerHTML = "This guest already has it";
+    document.getElementById('btnx').disabled = true;
+})
     // console.log(labl2);
 
 
-})
+
 
 // console.log(document.getElementById('selectt'));

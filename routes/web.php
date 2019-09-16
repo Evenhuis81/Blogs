@@ -2,8 +2,10 @@
 
 use \App\Blog;
 use \App\User;
+use App\Digest;
 use Illuminate\Http\Request;
 use App\Mail\WeeklyBlogDigest;
+use Illuminate\Support\Facades\Mail;
 
 Route::get('/', 'PagesController@home')->name('home');
 Route::get('/about', 'PagesController@about')->name('about');
@@ -41,8 +43,13 @@ Route::post('digest', function (Request $request) {
         $dblogs = Blog::all();
         // and ofc, on create dates of that week
     }
-    $email = $user->email;
-    \Mail::to($email)->send(
+    
+    Digest::create([
+        'user_id' => $user->id,
+        'week' => 38
+    ]);
+    
+    Mail::to($user->email)->send(
         new WeeklyBlogDigest($dblogs)
     );
 
