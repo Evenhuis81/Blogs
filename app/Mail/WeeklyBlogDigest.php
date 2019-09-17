@@ -11,14 +11,16 @@ class WeeklyBlogDigest extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $dblogs;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($dblogs)
     {
-        //
+        $this->dblogs = $dblogs;
     }
 
     /**
