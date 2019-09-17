@@ -64,6 +64,9 @@ class FormController extends Controller
         $myFile = public_path('images')."\\".$blog->image;
         unlink($myFile) or die("Couldn't delete file");
         $blog->update(['image' => null]);
+
+        session()->flash('deletepicturemessage', '>> picture deleted <<');
+
         return redirect()->route('blogs.edit', ['id' => $blog->id]);
     }
 }

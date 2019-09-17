@@ -44,6 +44,8 @@ class BlogCommentsController extends Controller
             'subject' => ['required', 'min:3', 'max:255'],
             'description' => ['required', 'min:3']
             ]));
+
+        session()->flash('updatecomment', '>> comment updated <<');
         return redirect()->route('blogs.show', ['id' => $comment->blog_id]);
     }
 

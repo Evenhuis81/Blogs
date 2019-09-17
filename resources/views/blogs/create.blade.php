@@ -5,18 +5,18 @@
 
 <form method="POST" action="/blogs">
     @csrf
-    
+
+    <label>
+        <input type="checkbox" name="premium">Premium Content?
+    </label>
+
+
     <div class="field">
         <label class="label" for="title">Blog Title</label>
 
         <div class="control">
-            <input
-            type="text"
-            class="input {{ $errors->has('title') ? 'is-danger' : '' }}"
-            name="title"
-            value="{{ old('title') }}"
-            placeholder="Title"
-            required>
+            <input type="text" class="input {{ $errors->has('title') ? 'is-danger' : '' }}" name="title"
+                value="{{ old('title') }}" placeholder="Title" required>
         </div>
     </div>
 
@@ -24,7 +24,8 @@
         <label class="label" for="description">Blog Description</label>
 
         <div class="control">
-            <textarea name="description" class="textarea {{ $errors->has('description') ? 'is-danger' : '' }}" placeholder="Description" required>{{ old('description') }}</textarea>
+            <textarea name="description" class="textarea {{ $errors->has('description') ? 'is-danger' : '' }}"
+                placeholder="Description" required>{{ old('description') }}</textarea>
 
         </div>
     </div>
@@ -34,7 +35,7 @@
 
 
 
-    
+
     {{-- <div>
         <input type="hidden" name="owner_id" placeholder="Type 1" value="1">
     </div> --}}
@@ -49,6 +50,3 @@
 </form>
 
 @endsection
-
-
-

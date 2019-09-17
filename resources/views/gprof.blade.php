@@ -3,6 +3,11 @@
 @section('pagetitle', 'Guest Profiles Page')
 @section('content')
 
+@if (session('gprem'))
+<p style="color: purple">{{ session('gprem') }}</p>
+<br>
+@endif
+
 @foreach($users as $user)
 <form method="POST" action="/guestpremium/{{ $user->id }}">
     @method('PATCH')
@@ -43,5 +48,8 @@
 </form>
 <p id="msg"></p>
 <a href="digest2" id="msg2"></a>
+@if (session('digestsent'))
+<p style="color: purple">{{ session('digestsent') }}</p>
+@endif
 
 @endsection

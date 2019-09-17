@@ -53,6 +53,7 @@ Route::post('digest', function (Request $request) {
         new WeeklyBlogDigest($dblogs)
     );
 
+    session()->flash('digestsent', '>> digest week ' . date('W') . ' sent for user' . $user->last_name . ' <<');
 
     return back();
 });
@@ -75,6 +76,13 @@ Route::patch('/guestpremium/{user}', function (User $user) {
     $user->update([
         'premium' => request()->has('premium')
     ]);
+
+    if ($user->premium == true) {
+        session()->flash('gprem', '>> premium set for ' . $user->last_name . ' <<');
+    } else {
+        session()->flash('gprem', '>> premium removed from ' . $user->last_name . ' <<');
+    }
+
     return back();
 });
 

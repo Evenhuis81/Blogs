@@ -6,6 +6,12 @@
 {{-- <form name="myform" method="POST" action="/blogpremium/{{ $blog->id }}">
 @method('PATCH')
 @csrf --}}
+@if (session('deletepicturemessage'))
+<p style="color: purple">{{ session('deletepicturemessage') }}</p>
+<hr>
+@endif
+
+
 <div id="checkprem">
     @include('checkprem')
 </div>

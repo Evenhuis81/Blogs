@@ -84,10 +84,12 @@ class BlogsController extends Controller
             $blog->update([
                 'premium' => false
             ]);
+            session()->flash('message', '>> unmarked premium <<');
         } else {
             $blog->update([
                 'premium' => true
             ]);
+            session()->flash('message', '>> marked premium <<');
         }
         // $blog->update([
         //     'premium' => request()->has('premium')
@@ -110,7 +112,7 @@ class BlogsController extends Controller
     
      public function store(Request $request)
     {
-        // dd($this);
+        // dd(isset($request->premium));
         // $this->validateProject();
         $attributes = request()->validate([
             'title' => ['required', 'min:3', 'max:255'],
@@ -118,8 +120,10 @@ class BlogsController extends Controller
         ]);
         $attributes['owner_id'] = auth()->id();
         // Project::create($attributes + ['owner_id' => 6]);
-        Blog::create($attributes + ['premium' => 1]);
+        Blog::create($attributes + ['premium' => isset($request->premium)]);
 
+        // store flash = for single use
+        session()->flash('message', '>> Blog created <<');
         // Mail::to('');
 
         return redirect('/blogs');
@@ -193,6 +197,9 @@ class BlogsController extends Controller
         ]));
         $blog->categories()->sync(request('categories'));
         // $categories = Category::all();
+
+        session()->flash('updatemessage', '>> updated blog <<');
+
         return view('blogs.show', compact('blog'));
     }
 
@@ -205,6 +212,7 @@ class BlogsController extends Controller
     public function destroy(Blog $blog)
     {
         $blog->delete();
+        session()->flash('deletemessage', '>> deleted blog <<');
         return redirect(route('blogs'));
     }
 }
